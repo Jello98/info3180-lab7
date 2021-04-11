@@ -11,6 +11,23 @@ from flask import render_template, request
 ###
 # Routing for your application.
 ###
+@app.route('/api/upload', methods=['POST'])
+def upload:
+    form = UploadForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        description = request.form['description']
+        file = request.files['photo']
+
+        filename= secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+
+        result = [{
+        'message': 'File Upload Successful',
+        'filename': filename,
+        'description': description
+        }]
+        return jsonify(result=result)
+    return '{\ "errors": '
 
 
 # Please create all new routes and view functions above this route.
