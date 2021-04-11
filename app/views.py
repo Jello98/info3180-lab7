@@ -26,8 +26,9 @@ def upload:
         'filename': filename,
         'description': description
         }]
-        return jsonify(result=result)
-    return '{\ "errors": '
+        return jsonify(result)
+    error = form_errors(forms)
+    return jsonify({"Errors" :error })
 
 
 # Please create all new routes and view functions above this route.
