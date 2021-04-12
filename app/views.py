@@ -12,7 +12,7 @@ from flask import render_template, request
 # Routing for your application.
 ###
 @app.route('/api/upload', methods=['POST'])
-def upload:
+def upload():
     form = UploadForm()
     if request.method == 'POST' and form.validate_on_submit():
         description = request.form['description']

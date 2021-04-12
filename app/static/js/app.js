@@ -57,6 +57,55 @@ const Home = {
     }
 };
 
+const uploadForm = Vue.component('upload-form',{ 
+    template:`
+    <div>
+        <h2> UPLOAD FORM </h2>
+        <form @submit.prevent="uploadPhoto" method = "post" enctype = "multipart/form-data" id = "uploadForm">
+            <div class="form-group">
+                <label for="description">Example textarea</label>
+                <textarea class="form-control"  name="description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label> Upload file</label>
+                <input type="file" class="form-control" id="Photo" name="photo" >
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    `,
+    methods:{
+        uploadPhoto:function(){
+
+            let uploadForm = document.getElementById('uploadForm');
+            let form_data = new FormData(uploadForm);
+
+            
+            fetch("/api/upload", {
+                method: 'POST'
+                body: form_data
+                headers:{
+                    'X-CSRFToken': token
+                },
+                credentials: 'same-origin'
+            })
+                .then(function (response) { return response.json();
+                })
+                .then(function (jsonResponse) {
+                    // display a success message
+                    console.log(jsonResponse); 
+                })
+                .catch(function (error) {  
+                    console.log(error);
+                });
+
+        }
+
+    }
+
+})
+
+
 const NotFound = {
     name: 'NotFound',
     template: `
@@ -73,7 +122,7 @@ const NotFound = {
 const routes = [
     { path: "/", component: Home },
     // Put other routes here
-
+    {path: "/upload/", component: uploadform},
     // This is a catch all route in case none of the above matches
     { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound }
 ];
