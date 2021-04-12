@@ -57,7 +57,8 @@ const Home = {
     }
 };
 
-const uploadForm = Vue.component('upload-form',{ 
+const UploadForm ={
+    name:'upload-form', 
     template:`
     <div>
         <h2> UPLOAD FORM </h2>
@@ -82,8 +83,9 @@ const uploadForm = Vue.component('upload-form',{
 
             
             fetch("/api/upload", {
-                method: 'POST'
-                body: form_data
+                method: 'POST',
+                body:form_data,
+
                 headers:{
                     'X-CSRFToken': token
                 },
@@ -102,8 +104,9 @@ const uploadForm = Vue.component('upload-form',{
         }
 
     }
+    
 
-})
+};
 
 
 const NotFound = {
@@ -122,7 +125,7 @@ const NotFound = {
 const routes = [
     { path: "/", component: Home },
     // Put other routes here
-    {path: "/upload/", component: uploadform},
+    {path: "/upload", component: UploadForm},
     // This is a catch all route in case none of the above matches
     { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound }
 ];
