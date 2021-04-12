@@ -11,7 +11,7 @@ from flask import render_template, request
 ###
 # Routing for your application.
 ###
-@app.route('/api/upload', methods=['POST'])
+@app.route('/api/upload', methods=['POST,GET'])
 def upload():
     form = UploadForm()
     if request.method == 'POST' and form.validate_on_submit():
